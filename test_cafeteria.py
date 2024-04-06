@@ -1,6 +1,6 @@
 import pytest
 import json
-from cafeteria import Cafeteria
+from Cafeteria import Cafeteria
 
 # Fixture para crear una instancia de Cafeteria para pruebas
 @pytest.fixture
