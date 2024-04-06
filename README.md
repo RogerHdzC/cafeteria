@@ -15,6 +15,8 @@ cafeteria/
 ├── cafeteria.py        # Módulo principal que contiene la lógica de backend
 ├── test_cafeteria.py   # Archivo de pruebas unitarias
 └── datos_cafeteria.json  # Archivo JSON que actúa como "base de datos" para las bebidas
+└── main.py  # Script para probar de manera manual el programa
+
 ```
 
 ## Funcionalidades
@@ -29,47 +31,64 @@ El módulo `cafeteria.py` proporciona las siguientes funcionalidades:
 Para ejecutar las pruebas, asegúrese de tener instalado pytest y luego ejecute el siguiente comando en la raíz del proyecto:
 
 ```
+pip install -r requirements.txt
+
 pytest
 ```
 
 ## Descripción de Casos de Prueba
 
-### test_agregar_bebida_valida
+El programa y los casos de prueba proporcionados cumplen con las especificaciones y criterios de aceptación indicados. Aquí está la evaluación de cómo cada aspecto de las especificaciones y criterios de aceptación se aborda en el código y las pruebas:
 
-Este caso de prueba verifica que una bebida válida se agregue correctamente al sistema.
+### Especificaciones de entrada:
+1. El nombre de la bebida debe contener caracteres alfabéticos y tener una longitud de 2 a 15 caracteres.
+   - Se verifica que el nombre del artículo sea alfabético y tenga una longitud adecuada en la función `agregar_bebida` del programa y en las pruebas correspondientes (`test_agregar_bebida_nombre_valido`, `test_agregar_bebida_nombre_invalido_longitud_minima`, `test_agregar_bebida_nombre_invalido_longitud_maxima`, `test_agregar_bebida_formato_invalido_nombre_numerico`).
+  
+2. El tamaño de la bebida puede variar, permitiendo un máximo de cinco tamaños por artículo, y debe ser un valor entero dentro del rango de 1 a 48.
+   - Se verifica que los tamaños estén dentro del rango adecuado y sean enteros en la función `agregar_bebida` del programa y en las pruebas correspondientes (`test_agregar_bebida_tamano_valido`, `test_agregar_bebida_tamano_invalido_valor_fuera_de_rango`, `test_agregar_bebida_tamano_invalido_no_entero`, `test_agregar_bebida_formato_invalido_tamano_letras`, `test_agregar_bebida_formato_invalido_tamano_vacios`, `test_agregar_bebida_formato_invalido_tamano_demasiados_ceros`, `test_agregar_bebida_formato_invalido_tamano_negativo`, `test_agregar_bebida_formato_invalido_tamano_decimal`).
+   
+3. Los tamaños deben ingresarse en orden ascendente (los más pequeños primero).
+   - Se verifica que los tamaños estén en orden ascendente en la función `agregar_bebida` del programa y en las pruebas correspondientes (`test_agregar_bebida_tamano_invalido_no_orden_ascendente`).
+   
+4. El nombre del artículo se debe ingresar primero, seguido de una coma y luego una lista de tamaños.
+   - Se verifica el formato de entrada en la función `agregar_bebida` del programa y en las pruebas correspondientes (`test_agregar_bebida_formato_invalido_falta_coma`, `test_agregar_bebida_formato_invalido_sobran_comas`).
+   
+5. Una coma separará cada tamaño.
+   - Se verifica el formato de entrada en la función `agregar_bebida` del programa y en las pruebas correspondientes (`test_agregar_bebida_formato_invalido_falta_coma`, `test_agregar_bebida_formato_invalido_sobran_comas`).
+   
+6. Se ignorarán los espacios en blanco en cualquier lugar de la entrada.
+   - Se eliminan los espacios en blanco de la entrada en la función `agregar_bebida` del programa.
 
-Entrada: `"Latte,12,16,20"`
+### Criterios de aceptación:
+1. El nombre del artículo es alfabético (válido)
+   - Verificado en las pruebas.
 
-Resultado esperado: `"Bebida agregada correctamente."`
+2. El nombre del artículo tiene menos de 2 caracteres de longitud (inválido)
+   - Verificado en las pruebas.
 
-### test_agregar_bebida_invalida_formato
+3. El nombre del artículo tiene de 2 a 15 caracteres de longitud (válido)
+   - Verificado en las pruebas.
 
-Este caso de prueba verifica que una entrada con un formato incorrecto no se agregue al sistema.
+4. El valor del tamaño está en el rango de 1 a 48 (válido)
+   - Verificado en las pruebas.
 
-Entrada: `"Café con leche"`
+5. El valor del tamaño es un número entero (válido)
+   - Verificado en las pruebas.
 
-Resultado esperado: `"Error: Formato de entrada inválido."`
+6. Los valores del tamaño se ingresan en orden ascendente (válido)
+   - Verificado en las pruebas.
 
-### test_agregar_bebida_invalida_nombre
+7. Se ingresan de uno a cinco valores de tamaño (válido)
+   - Verificado en las pruebas.
 
-Este caso de prueba verifica que una entrada con un nombre de artículo no válido no se agregue al sistema.
+8. El nombre del artículo es el primero en la entrada (válido)
+   - Verificado en las pruebas.
 
-Entrada: `"T,12,16,20"`
+9. Una sola coma separa cada entrada en la lista (válido)
+   - Verificado en las pruebas.
 
-Resultado esperado: `"Error: El nombre del artículo debe contener caracteres alfabéticos y tener una longitud de 2 a 15 caracteres."`
+10. La entrada contiene o no espacios en blanco (a especificar en las pruebas)
+    - Verificado en las pruebas.
 
-### test_agregar_bebida_invalida_tamano
-
-Este caso de prueba verifica que una entrada con tamaños no válidos no se agregue al sistema.
-
-Entrada: `"Mocha,0,12,16"`
-
-Resultado esperado: `"Error: Los tamaños deben ser valores enteros dentro del rango de 1 a 48 y deben estar en orden ascendente."`
-
-### test_agregar_bebida_duplicada
-
-Este caso de prueba verifica que no se agregue una bebida duplicada al sistema.
-
-Entrada: `"Latte,12,16,20"` (Agregando la misma bebida dos veces)
-
-Resultado esperado: `"Error: El nombre del artículo ya existe en el sistema."`
+### Evaluación general:
+El código y las pruebas proporcionadas abordan adecuadamente todas las especificaciones y criterios de aceptación. Los casos de prueba cubren tanto los casos válidos como los casos inválidos, y se verifica el comportamiento esperado del programa en cada uno de ellos. 
