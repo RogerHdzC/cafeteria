@@ -40,6 +40,10 @@ class Cafeteria:
         if not all(1 <= tam <= 48 for tam in tamanos) or tamanos != sorted(tamanos):
             return "Error: Los tamaños deben ser valores enteros dentro del rango de 1 a 48 y deben estar en orden ascendente."
 
+        # Verificar el nombre del artículo
+        if not nombre.isalpha() or len(nombre) < 2 or len(nombre) > 15:
+            return "Error: El nombre del artículo debe contener caracteres alfabéticos y tener una longitud de 2 a 15 caracteres."
+
         # Agregar la bebida al diccionario de bebidas
         self.bebidas[nombre] = tamanos
         self.guardar_bebidas()  # Guardar los datos actualizados en el archivo JSON
