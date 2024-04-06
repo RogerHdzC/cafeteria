@@ -44,6 +44,22 @@ class Cafeteria:
         if not nombre.isalpha() or len(nombre) < 2 or len(nombre) > 15:
             return "Error: El nombre del artículo debe contener caracteres alfabéticos y tener una longitud de 2 a 15 caracteres."
 
+        # Verificar si el nombre ya existe (sin importar mayúsculas o minúsculas)
+        nombre_existente = next((bebida_nombre for bebida_nombre in self.bebidas.keys() if bebida_nombre.lower() == nombre), None)
+
+        if nombre_existente:
+            # Combinar tamaños si la bebida ya existe
+            tamanos_existente = self.bebidas[nombre_existente]
+            nuevos_tamanos = sorted(set(tamanos_existente + tamanos))
+            if len(nuevos_tamanos) > 5:
+                return "Error: La bebida ya tiene el máximo de 5 tamaños permitidos."
+            if nuevos_tamanos == tamanos_existente:
+                return "Error: La bebida ya existe en el sistema."
+            else:
+                self.bebidas[nombre_existente] = nuevos_tamanos
+                self.guardar_bebidas()
+                return f"La bebida ya existe, se agregaron los tamaños extras: {', '.join(map(str, nuevos_tamanos))}"
+
         # Agregar la bebida al diccionario de bebidas
         self.bebidas[nombre] = tamanos
         self.guardar_bebidas()  # Guardar los datos actualizados en el archivo JSON
