@@ -37,6 +37,9 @@ class Cafeteria:
         if len(tamanos) > 5:
              return "Error: La bebida ya tiene el máximo de 5 tamaños permitidos."
 
+        if not all(1 <= tam <= 48 for tam in tamanos) or tamanos != sorted(tamanos):
+            return "Error: Los tamaños deben ser valores enteros dentro del rango de 1 a 48 y deben estar en orden ascendente."
+
         # Agregar la bebida al diccionario de bebidas
         self.bebidas[nombre] = tamanos
         self.guardar_bebidas()  # Guardar los datos actualizados en el archivo JSON
